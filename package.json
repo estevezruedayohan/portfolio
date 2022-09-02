@@ -1,7 +1,7 @@
 {
   "name": "js-portfolio",
   "version": "1.0.0",
-  "description": "A minimal portfolio with Vanilla JavaScript",
+  "description": "A minimal  portfolio with Vanilla JavaScript",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
