@@ -3,6 +3,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
 const CopyPlugin = require('copy-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 
 module.exports = {
@@ -13,6 +14,7 @@ module.exports = {
     assetModuleFilename: 'assets/images/[hash][ext][query]'
   },
   mode: 'development',
+  devtool: 'source-map', // habilita el devtools
   // watch: true,
   resolve:{
     extensions: ['.js'],
@@ -43,21 +45,6 @@ module.exports = {
         test: /\.png/,
         type: 'asset/resource'
       },
-      // {
-      //   test: /\.(woff||woff2)$/i,
-      //   use:{
-      //     loader: 'url-loader',
-      //     options: {
-      //       limit: 10000,
-      //       mimetype: 'application/font-woff',
-      //       name: '[name].[ext]',
-      //       outputPath: "./assets/fonts/",
-      //       publicPath: "./assets/fonts/",
-      //       esModule: false,
-      //     },
-      //   },
-      //   type: 'javascript/auto',
-      // },
       {
         test: /\.(woff||woff2)$/i,
         type: 'asset/resource',
@@ -74,8 +61,7 @@ module.exports = {
       filename: './index.html'          // NOMBRE FINAL DEL ARCHIVO HTML
     }),
     new MiniCssExtractPlugin({
-      filename: './assets/[name].[contenthash].css', // se quito contenthas para elimiar error 
-      // filename: 'assets/[name].[contenthash].css',
+      filename: './assets/[name].[contenthash].css', 
     }
     ),
     new CopyPlugin({
@@ -89,8 +75,9 @@ module.exports = {
     new Dotenv({
       path: './src/.env',
     }),
+    new BundleAnalyzerPlugin(),// inicializar el plugin
   ],
-  devServer: {
+  devServer: { // configuracion del webserver
     static: path.join(__dirname, 'dist'),
     compress: true,
     historyApiFallback: true,
